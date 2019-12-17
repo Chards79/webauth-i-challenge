@@ -1,13 +1,12 @@
 const express = require('express');
-const helmet = require('helmet');
+
+const apiRouter = require('./api-router');
+const configureMiddleware = require('./configure-middleware');
+
 const server = express();
-const db = require('../data/dbConfig');
 
-const usersRouter = require('../routers/users-router');
+configureMiddleware(server);
 
-server.use(helmet());
-server.use(express.json());
-server.use('/api/routers/users', usersRouter);
-server.use('/api/routers', db);
+server.use('/api', apiRouter);
 
 module.exports = server;
